@@ -1,0 +1,35 @@
+<div class="hidden md:flex justify-center">
+  <Component
+    :is="link.url ? 'Link' : 'span'"
+    v-for="(link, index) in links"
+    :key="index"
+    class="link inline-block px-3 py-1 border border-gray-300"
+    :class="{
+      'border-blue-500 bg-blue-500 text-white': link.active,
+      'rounded-l-md': link.label.includes('Previous'),
+      'rounded-r-md': link.label.includes('Next'),
+      'disabled text-gray-300': !link.url && !link.label.includes('...'),
+    }"
+    :href="link.url"
+  >
+    <i v-if="link.label.includes('Previous')" class="fas fa-chevron-left"></i>
+    <i v-if="link.label.includes('Next')" class="fas fa-chevron-right"></i>
+    {{ link.label.includes("Previous") || link.label.includes("Next") ? "" : link.label }}
+  </Component>
+</div>
+
+  <!-- Mobile View -->
+<div class="md:hidden flex items-center justify-between">
+  <Component
+    :is="link.url ? 'Link' : 'span'"
+    v-for="(link, index) in mobile_links"
+    :key="index"
+    class="inline-block px-3 py-1 border border-gray-200 rounded-md"
+    :class="{
+      'disabled text-gray-300': !link.url,
+    }"
+    :href="link.url"
+    v-html="link.label"
+  >
+  </Component>
+</div>
